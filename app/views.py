@@ -22,6 +22,7 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/', methods=['POST'], defaults={'referrer': None})
 @app.route('/api/v1/accounts', methods=['POST'], defaults={'referrer': None})
 @app.route('/<referrer>/api/v1/accounts', methods=['POST'])
 def tapbasic(referrer):
