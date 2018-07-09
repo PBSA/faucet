@@ -17,14 +17,10 @@ def api_error(msg):
     return jsonify({"error": {"base": [msg]}})
 
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-
-@app.route('/', methods=['POST'], defaults={'referrer': None})
-@app.route('/api/v1/accounts', methods=['POST'], defaults={'referrer': None})
-@app.route('/<referrer>/api/v1/accounts', methods=['POST'])
+@app.route('/faucet', methods=['POST'], defaults={'referrer': None})
+@app.route('/faucet/', methods=['POST'], defaults={'referrer': None})
+@app.route('/faucet/api/v1/accounts', methods=['POST'], defaults={'referrer': None})
+@app.route('/faucet/<referrer>/api/v1/accounts', methods=['POST'])
 def tapbasic(referrer):
 
     # test is request has 'account' key
