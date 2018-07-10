@@ -47,7 +47,10 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 # Setup CORS
-cors = CORS(app, resources={r".*/api/v1/.*": {"origins": "*"}})
+cors = CORS(app, resources={
+    r".*/api/v1/.*": {"origins": "*"},
+    r".*/faucet.*": {"origins": "*"}
+})
 
 # Logging
 log_handler_mail = SMTPHandler(config.mail_host.split(":"),
