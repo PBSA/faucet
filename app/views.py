@@ -15,9 +15,9 @@ def api_error(msg):
     return jsonify({"error": {"base": [msg]}})
 
 
-@app.route('/', methods=['GET', 'POST'], defaults={'path': 'faucet', 'referrer': None})
-@app.route('/<path:path>', methods=["GET", 'POST'], defaults={'referrer': None})
-def tapbasic(path, referrer):
+@app.route('/', methods=['GET', 'POST'], defaults={'referrer': None})
+@app.route('/faucet', methods=["GET", 'POST'], defaults={'referrer': None})
+def tapbasic(referrer):
 
     if request.method == "GET":
         return "faucet"
