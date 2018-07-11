@@ -17,7 +17,7 @@ def api_error(msg):
 
 @app.route('/', methods=['GET', 'POST'], defaults={'path': 'faucet', 'referrer': None})
 @app.route('/<path:path>', methods=["GET", 'POST'], defaults={'referrer': None})
-def tapbasic(referrer):
+def tapbasic(path, referrer):
 
     if request.method == "GET":
         return "faucet"
