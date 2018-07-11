@@ -1,15 +1,13 @@
+import re
+import traceback
+
+from flask import request, jsonify, abort
+
 from peerplays.account import Account
 from peerplays import PeerPlays
-import re
-from pprint import pprint
-import json
-import os
-from flask import render_template, request, session, jsonify, abort
+
 from . import app, models
-from datetime import datetime
-import traceback
 from . import config
-from graphenebase.account import PasswordKey
 log = app.logger
 
 
@@ -17,8 +15,12 @@ def api_error(msg):
     return jsonify({"error": {"base": [msg]}})
 
 
-@app.route('/faucet', methods=['POST'], defaults={'referrer': None})
+@app.route('/', methods=['GET', 'POST'], defaults={'path': 'faucet', 'referrer': None})
+@app.route('/<path:path>', methods=["GET", 'POST'], defaults={'referrer': None})
 def tapbasic(referrer):
+
+    if request.method == "GET":
+        return "faucet"
 
     # test is request has 'account' key
     if not request.json or 'account' not in request.json:
