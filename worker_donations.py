@@ -14,7 +14,7 @@ instance = PeerPlays(
     nobroadcast=config["nobroadcast"]
 )
 
-def run(begin=292058, end=None):
+def run(begin=None, end=None):
 
     blockchain = Blockchain(
         mode="head",
