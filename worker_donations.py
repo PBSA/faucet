@@ -14,7 +14,7 @@ instance = PeerPlays(
     nobroadcast=config["nobroadcast"]
 )
 
-def run(begin=None, end=None):
+def run(begin=292058, end=None):
 
     blockchain = Blockchain(
         mode="head",
@@ -29,18 +29,13 @@ def run(begin=None, end=None):
         blockid = op.get("block_num")
         timestamp = op.get("timestamp")
 
-        #if not blockid % 100:
-        #    print("Blockid: %d (%s)" % (blockid, timestamp), flush=True)
+        print("Blockid: %d (%s)" % (blockid, timestamp), flush=True)
 
-        try:
-            pprint(instance.transfer(
-                op["name"],
-                config["donation_amount"], config["donation_asset"],
-                account=config["registrar"]
-            ))
-        except Exception as e:
-            print(str(e))
-            pass
+        pprint(instance.transfer(
+            op["name"],
+            config["donation_amount"], config["donation_asset"],
+            account=config["registrar"]
+        ))
 
 
 if __name__ == '__main__':
