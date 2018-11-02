@@ -3,6 +3,7 @@ from pprint import pprint
 import sys
 import json
 from peerplays import PeerPlays
+from peerplays.instance import set_shared_blockchain_instance
 from peerplays.account import Account
 from peerplays.blockchain import Blockchain
 
@@ -13,6 +14,7 @@ instance = PeerPlays(
     keys=[config["wif"]],
     nobroadcast=config["nobroadcast"]
 )
+set_shared_blockchain_instance(instance)
 
 def run(begin=None, end=None):
 
