@@ -15,9 +15,9 @@ def api_error(msg):
     return jsonify({"error": {"base": [msg]}})
 
 
-@app.route('/', methods=['GET', 'POST'], defaults={'referrer': None})
-@app.route('/faucet', methods=["GET", 'POST'], defaults={'referrer': None})
-def tapbasic(referrer):
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/faucet', methods=["GET", 'POST'])
+def tapbasic():
 
     if request.method == "GET":
         return "faucet"
@@ -63,21 +63,13 @@ def tapbasic(referrer):
     except:
         return api_error("Unknown registrar: %s" % registrar)
 
-    # Referrer
-    referrer = account.get("referrer", config.default_referrer) or config.default_referrer
-    try:
-        referrer = Account(referrer, peerplays_instance=peerplays)
-    except:
-        return api_error("Unknown referrer: %s" % referrer)
-    referrer_percent = account.get("referrer_percent", config.referrer_percent)
-
     # Create new account
     try:
         peerplays.create_account(
             account["name"],
             registrar=registrar["id"],
-            referrer=referrer["id"],
-            referrer_percent=referrer_percent,
+            referrer=registrar["id"],
+            referrer_percent=0,
             owner_key=account["owner_key"],
             active_key=account["active_key"],
             memo_key=account["memo_key"],
@@ -108,5 +100,5 @@ def tapbasic(referrer):
         "owner_key": account["owner_key"],
         "active_key": account["active_key"],
         "memo_key": account["memo_key"],
-        "referrer": referrer["name"]
+        "referrer": registrar["id"]
     }})
